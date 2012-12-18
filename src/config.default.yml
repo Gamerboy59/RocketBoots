@@ -56,3 +56,25 @@ boots:
         #    (this doesn't affect your vertical speed)
         # Default 50. Minimum 10, max 100
         speedMultiplier: 50
+
+
+
+            ########################################################
+            ##The new part of configuration, maybe added in v0.9.3##
+            ########################################################
+
+AdvancedMod:
+    enabled: true (/false)
+
+    # Decreases hungerbar while flying.
+    enableHunger: true (/false)
+
+    # Add damage to the boots when landing on the ground.
+    enableBootsDamage: true (/false)
+
+    # Add fall damage to the player when landing on the ground.
+    enableFallDamage: true (/false)
+
+    # Mode 1 = strg
+    # Mode 2 = (nr.)3
+    useOtherButton: 1
