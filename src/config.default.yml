@@ -64,16 +64,20 @@ boots:
             ########################################################
 
 AdvancedMod:
-    enabled: true (/false)
+    enabled: true
+           # (/false)
 
     # Decreases hungerbar while flying.
-    enableHunger: true (/false)
+    enableHunger: true
+                 #(/false)
 
     # Add damage to the boots when landing on the ground.
-    enableBootsDamage: true (/false)
+    enableBootsDamage: true
+                      #(/false)
 
     # Add fall damage to the player when landing on the ground.
-    enableFallDamage: true (/false)
+    enableFallDamage: true
+                     #(/false)
 
     # Mode 1 = strg
     # Mode 2 = (nr.)3
