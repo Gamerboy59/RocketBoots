@@ -1,5 +1,5 @@
 /*
-* Copyright 2012 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2015 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -51,7 +51,7 @@ public class RocketBoots extends JavaPlugin {
         this.getLogger().info("RocketBoots v" + this.getDescription().getVersion() + " enabled!");
         
         try {
-            Metrics metrics = new Metrics(this);
+            BukkitMetrics metrics = new BukkitMetrics(this);
             metrics.start();
         } catch (IOException e) {
             // Failed to submit the stats :-(
