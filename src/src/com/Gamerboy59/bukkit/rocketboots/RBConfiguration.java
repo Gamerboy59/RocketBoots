@@ -146,5 +146,9 @@ public final class RBConfiguration {
     public boolean preventFlightKick() {
         return this.config.getBoolean("preventFlightKick", true);
     }
+    
+    public boolean enableFallDamage() {
+        return this.config.getBoolean("AdvancedMod.enableFallDamage", false);
+    }
 
 }
