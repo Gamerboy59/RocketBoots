@@ -56,7 +56,7 @@ public class RBEntityListener implements Listener {
             if ((event.getCause() == DamageCause.FALL) && this.config.playerEnabled(player)) {
                 final Material playerBoots = Util.getPlayerBoots(player);
                 if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
-                    if (!this.config.enableFallDamage()){
+                    if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)){
                 	event.setCancelled(true);
                     }
                 } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) {
