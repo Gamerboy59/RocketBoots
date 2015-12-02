@@ -66,5 +66,8 @@ public class Permissions {
     public static boolean bypassFallDamage(Player player) {
         return player.hasPermission("rocketboots.bypassFallDamage");
     }
+    public static boolean bypassBootsDamage(Player player) {
+        return player.hasPermission("rocketboots.bypassBootsDamage");
+    }
 
 }

@@ -20,6 +20,8 @@ permissions:
             rocketboots.boots.iron: true
             rocketboots.feather: true
             rocketboots.launchPlayers: true
+            rocketboots.bypassFallDamage: true
+            rocketboots.bypassBootsDamage: true
     rocketboots.boots.gold:
         description: Can use gold boots
     rocketboots.boots.leather:

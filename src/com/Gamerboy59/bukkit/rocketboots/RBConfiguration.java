@@ -83,11 +83,12 @@ public final class RBConfiguration {
 
     public int numberLightningStrikes() {
         final int number = this.config.getInt("boots.chainmail.numLightningStrikes", 5);
-        if ((number < 0) || (number > 20)) {
+        if (number < 0) {
             return 5;
-        } else {
-            return number;
+        } else if (number > 20) {
+            return 20;
         }
+        return number;
     }
 
     public double leatherBootsSpeed() {
@@ -149,6 +150,16 @@ public final class RBConfiguration {
     
     public boolean enableFallDamage() {
         return this.config.getBoolean("AdvancedMod.enableFallDamage", false);
+    }
+    
+    public int bootsDamage() {
+        final int number = this.config.getInt("AdvancedMod.bootsDamage", 10);
+        if (number < 0) {
+            return 0;
+        } else if (number > 78) {
+            return 78;
+        }
+        return number;
     }
 
 }

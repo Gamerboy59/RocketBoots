@@ -39,6 +39,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.inventory.ItemStack;
 
 public class RBEntityListener implements Listener {
 
@@ -55,12 +56,33 @@ public class RBEntityListener implements Listener {
             final Player player = (Player) entity;
             if ((event.getCause() == DamageCause.FALL) && this.config.playerEnabled(player)) {
                 final Material playerBoots = Util.getPlayerBoots(player);
+                final ItemStack equippedBoots = player.getEquipment().getBoots();
                 if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
                     if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)){
                 	event.setCancelled(true);
                     }
+                    if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
+                        player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
+                        player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        if (equippedBoots.getDurability() >= 79) {
+                        	player.getInventory().remove(equippedBoots);
+                        	player.updateInventory();
+                        	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
+                        }
+                    }
                 } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) {
-                    event.setCancelled(true);
+                    if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)){
+                	event.setCancelled(true);
+                    }
+                    if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
+                        player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
+                        player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        if (equippedBoots.getDurability() >= 79) {
+                        	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
+                        	player.getInventory().remove(equippedBoots);
+                        	player.updateInventory();
+                        }
+                    }
                     final Location playerLocation = player.getLocation();
                     final int times = this.config.numberLightningStrikes();
                     final boolean useRealLightning = this.config.strikeRealLightning();
@@ -75,5 +97,4 @@ public class RBEntityListener implements Listener {
             }
         }
     }
-
 }
