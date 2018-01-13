@@ -156,10 +156,14 @@ public final class RBConfiguration {
         final int number = this.config.getInt("AdvancedMod.bootsDamage", 10);
         if (number < 0) {
             return 0;
-        } else if (number > 78) {
-            return 78;
+        } else if (number > 99) {
+            return 99;
         }
         return number;
+    }
+    
+    public boolean enableItemLabels() {
+        return this.config.getBoolean("AdvancedMod.enableItemLabels", true);
     }
 
 }

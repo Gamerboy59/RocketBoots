@@ -31,6 +31,9 @@
 
 package com.Gamerboy59.bukkit.rocketboots;
 
+import java.util.ArrayList;
+
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -40,6 +43,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class RBEntityListener implements Listener {
 
@@ -48,6 +52,7 @@ public class RBEntityListener implements Listener {
     public RBEntityListener(RBConfiguration config) {
         this.config = config;
     }
+
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
@@ -64,9 +69,10 @@ public class RBEntityListener implements Listener {
                     if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
                         player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
-                        if (equippedBoots.getDurability() >= 79) {
+                        setLore(equippedBoots);
+                        if (equippedBoots.getDurability() >= 100) {
                         	player.getInventory().setBoots(null);
-                        	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
+                        	player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
                         }
                     }
                 } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) {
@@ -76,9 +82,10 @@ public class RBEntityListener implements Listener {
                     if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
                         player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
-                        if (equippedBoots.getDurability() >= 79) {
+                        setLore(equippedBoots);
+                        if (equippedBoots.getDurability() >= 100) {
                         	player.getInventory().setBoots(null);
-                        	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
+                        	player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
                         }
                     }
                     final Location playerLocation = player.getLocation();
@@ -94,5 +101,22 @@ public class RBEntityListener implements Listener {
                 }
             }
         }
+    }
+    
+    public void setLore(ItemStack equippedBoots) {
+    	if(this.config.enableItemLabels()) {
+    		ItemMeta equippedBootsMeta = equippedBoots.getItemMeta();
+        	equippedBootsMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "RocketBoots");
+            ArrayList<String> lore = new ArrayList<String>();
+            if(equippedBoots.getDurability() < 40) {
+            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.GREEN + equippedBoots.getDurability() + "%");
+            }else if (equippedBoots.getDurability() < 70) {
+            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.YELLOW + equippedBoots.getDurability() + "%");
+            }else {
+            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.RED + equippedBoots.getDurability() + "%");
+            }
+            equippedBootsMeta.setLore(lore);
+            equippedBoots.setItemMeta(equippedBootsMeta);
+    	}
     }
 }
