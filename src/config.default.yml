@@ -68,6 +68,7 @@ AdvancedMod:
            # (/false)
 
     # Add Label/Caption of "RocketBoots" and durability to player boots once they used them as rocket boots
+    # When false, a chat message shows current durability
     enableItemLabels: true
 
     # Decreases hungerbar while flying.

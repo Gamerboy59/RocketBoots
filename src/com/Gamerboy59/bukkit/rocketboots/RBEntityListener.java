@@ -68,7 +68,9 @@ public class RBEntityListener implements Listener {
                     }
                     if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
-                        player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        if(!this.config.enableItemLabels()) {
+                        	player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        }
                         setLore(equippedBoots);
                         if (equippedBoots.getDurability() >= 100) {
                         	player.getInventory().setBoots(null);
@@ -81,7 +83,9 @@ public class RBEntityListener implements Listener {
                     }
                     if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
-                        player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        if(!this.config.enableItemLabels()) {
+                        	player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
+                        }
                         setLore(equippedBoots);
                         if (equippedBoots.getDurability() >= 100) {
                         	player.getInventory().setBoots(null);
