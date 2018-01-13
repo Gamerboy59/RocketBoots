@@ -72,7 +72,8 @@ AdvancedMod:
                  #(/false)
 
     # Add damage to the boots when landing on the ground.
-    # Set to 0 to disable. Not more than 78 possible as it destroys the gold and chainmail boots immidiatly.
+    # Set to 0 to disable. Not more than 99 possible as it destroys the gold and chainmail boots immidiatly.
+    # Calculated in percentage (99 means 99%). Do not write the percentage symbole.
     bootsDamage: 10
 
     # Add fall damage to the player when landing on the ground.

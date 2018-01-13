@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2015 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -162,14 +162,13 @@ public class RBPlayerListener implements Listener {
         }
     }
 
-    @SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (Action.RIGHT_CLICK_AIR.equals(event.getAction())) {
             final Player player = event.getPlayer();
             final Material playerBoots = Util.getPlayerBoots(player);
             if (playerBoots == null) return;
-            final ItemStack itemInHand = player.getItemInHand();
+            final ItemStack itemInHand = player.getInventory().getItemInMainHand();
             if (Material.FEATHER.equals(itemInHand.getType()) && Permissions.canUseFeather(player)) {
                 if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
                     final Location playerLocation = player.getLocation();

@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2015 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -65,8 +65,7 @@ public class RBEntityListener implements Listener {
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
                         player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
                         if (equippedBoots.getDurability() >= 79) {
-                        	player.getInventory().remove(equippedBoots);
-                        	player.updateInventory();
+                        	player.getInventory().setBoots(null);
                         	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
                         }
                     }
@@ -78,9 +77,8 @@ public class RBEntityListener implements Listener {
                         player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
                         player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
                         if (equippedBoots.getDurability() >= 79) {
+                        	player.getInventory().setBoots(null);
                         	player.sendMessage("[-->] RocketBoots durability: " + equippedBoots.getDurability());
-                        	player.getInventory().remove(equippedBoots);
-                        	player.updateInventory();
                         }
                     }
                     final Location playerLocation = player.getLocation();
