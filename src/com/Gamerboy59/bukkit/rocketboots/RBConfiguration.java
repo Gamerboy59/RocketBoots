@@ -91,6 +91,26 @@ public final class RBConfiguration {
         return number;
     }
 
+    public double goldenBootsSpeed() {
+        int number = this.config.getInt("boots.golden.launchSpeed", 20);
+        if (number < 10) {
+            number = 10;
+        } else if (number > 30) {
+            number = 30;
+        }
+        return (double) number / (double) 10;
+    }
+
+    public double chainmailBootsSpeed() {
+        int number = this.config.getInt("boots.chainmail.launchSpeed", 20);
+        if (number < 10) {
+            number = 10;
+        } else if (number > 30) {
+            number = 30;
+        }
+        return ((double) number / (double) 10) + 5;
+    }
+
     public double leatherBootsSpeed() {
         int number = this.config.getInt("boots.leather.launchSpeed", 20);
         if (number < 10) {

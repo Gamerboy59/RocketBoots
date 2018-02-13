@@ -73,11 +73,11 @@ public class RBPlayerListener implements Listener {
                 if (this.config.playerEnabled(player)) {
                     final Location playerLocation = player.getLocation();
                     final Vector playerDirection = playerLocation.getDirection();
-                    int speed = 1;
+                    double speed = 1;
                     if (Material.GOLD_BOOTS.equals(playerBoots)) {
-                        speed = 2;
+                        speed = this.config.goldenBootsSpeed();
                     } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots)) {
-                        speed = 6;
+                        speed = this.config.chainmailBootsSpeed();
                     }
                     playerDirection.multiply(speed);
                     player.setVelocity(playerDirection);

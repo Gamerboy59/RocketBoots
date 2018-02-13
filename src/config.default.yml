@@ -33,6 +33,15 @@ boots:
         # Use real lightning, or just the effect when you land
         realLightning: true
 
+        # How fast should players fly with golden boots?
+        # Default 20. Minimum 10, max 30
+        launchSpeed: 20
+
+    golden:
+        # How fast should players fly with golden boots?
+        # Default 20. Minimum 10, max 30
+        launchSpeed: 20
+
     leather:
         # How fast should animals/players/mobs be launched into the air with
         #   leather boots?
@@ -57,23 +66,10 @@ boots:
         # Default 50. Minimum 10, max 100
         speedMultiplier: 50
 
-
-
-            ########################################################
-            ##The new part of configuration, maybe added in v0.9.3##
-            ########################################################
-
 AdvancedMod:
-    enabled: true
-           # (/false)
-
     # Add Label/Caption of "RocketBoots" and durability to player boots once they used them as rocket boots
     # When false, a chat message shows current durability
     enableItemLabels: true
-
-    # Decreases hungerbar while flying.
-    enableHunger: true
-                 #(/false)
 
     # Add damage to the boots when landing on the ground.
     # Set to 0 to disable. Not more than 99 possible as it destroys the gold and chainmail boots immidiatly.
@@ -83,6 +79,14 @@ AdvancedMod:
     # Add fall damage to the player when landing on the ground.
     enableFallDamage: true
                    #(/false)
+
+            ########################################################
+            ##The new part of configuration, maybe added in v0.9.3##
+            ########################################################
+
+    # Decreases hungerbar while flying.
+    enableHunger: true
+                 #(/false)
 
     # Mode 1 = strg
     # Mode 2 = (nr.)3
