@@ -79,16 +79,3 @@ AdvancedMod:
     # Add fall damage to the player when landing on the ground.
     enableFallDamage: true
                    #(/false)
-
-            ########################################################
-            ##The new part of configuration, maybe added in v0.9.3##
-            ########################################################
-
-    # Decreases hungerbar while flying.
-    enableHunger: true
-                 #(/false)
-
-    # Mode 1 = strg
-    # Mode 2 = (nr.)3
-    # Mode 3 = no change, still sneaking
-    useOtherButton: 1

@@ -56,6 +56,12 @@ public class RocketBoots extends JavaPlugin {
         } catch (IOException e) {
             // Failed to submit the stats :-(
         }
+
+        try {
+        	NewBukkitMetrics nmetrics = new NewBukkitMetrics(this);
+        } catch (Exception e) {
+            // Failed to submit the stats :-(
+        }
     }
 
 }
