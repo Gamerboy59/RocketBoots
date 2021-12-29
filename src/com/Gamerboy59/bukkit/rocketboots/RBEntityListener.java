@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -43,6 +43,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class RBEntityListener implements Listener {
@@ -53,74 +54,85 @@ public class RBEntityListener implements Listener {
         this.config = config;
     }
 
-
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         final Entity entity = event.getEntity();
         if (entity instanceof Player) {
             final Player player = (Player) entity;
             if ((event.getCause() == DamageCause.FALL) && this.config.playerEnabled(player)) {
-                final Material playerBoots = Util.getPlayerBoots(player);
-                final ItemStack equippedBoots = player.getEquipment().getBoots();
-                if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
-                    if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)){
-                	event.setCancelled(true);
-                    }
-                    if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
-                        player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
-                        if(!this.config.enableItemLabels()) {
-                        	player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
-                        }
-                        setLore(equippedBoots);
-                        if (equippedBoots.getDurability() >= 100) {
-                        	player.getInventory().setBoots(null);
-                        	player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
-                        }
-                    }
-                } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) {
-                    if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)){
-                	event.setCancelled(true);
-                    }
-                    if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)){
-                        player.getEquipment().getBoots().setDurability((short) (equippedBoots.getDurability() + this.config.bootsDamage()));
-                        if(!this.config.enableItemLabels()) {
-                        	player.sendMessage("RocketBoots durability: " + equippedBoots.getDurability());
-                        }
-                        setLore(equippedBoots);
-                        if (equippedBoots.getDurability() >= 100) {
-                        	player.getInventory().setBoots(null);
-                        	player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
-                        }
-                    }
-                    final Location playerLocation = player.getLocation();
-                    final int times = this.config.numberLightningStrikes();
-                    final boolean useRealLightning = this.config.strikeRealLightning();
-                    for (int i = 0; i < times; i++) {
-                        if (useRealLightning) {
-                            player.getWorld().strikeLightning(playerLocation);
-                        } else {
-                            player.getWorld().strikeLightningEffect(playerLocation);
+                final ItemStack playerBoots = Util.getPlayerBoots(player);
+                if (playerBoots != null) {
+                    final Material playerBootsType = playerBoots.getType();
+                    final ItemMeta playerBootsMeta = playerBoots.getItemMeta();
+                    if (playerBootsMeta instanceof Damageable) {
+                        final Damageable playerBootsDamageable = (Damageable) playerBootsMeta;
+                        if ((Material.GOLDEN_BOOTS.equals(playerBootsType) && Permissions.canUseGoldBoots(player))
+                                || (Material.DIAMOND_BOOTS.equals(playerBootsType)
+                                        && Permissions.canUseDiamondBoots(player))) {
+                            if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)) {
+                                event.setCancelled(true);
+                            }
+                            if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)) {
+                                playerBootsDamageable
+                                        .setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
+                                if (this.config.enableItemLabels()) {
+                                    setLore(playerBoots, playerBootsDamageable);
+                                } else {
+                                    player.sendMessage("RocketBoots durability: " + playerBootsDamageable.getDamage());
+                                }
+                                if (playerBootsDamageable.getDamage() >= 100) {
+                                    player.getInventory().setBoots(null);
+                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
+                                }
+                            }
+                        } else if (Material.CHAINMAIL_BOOTS.equals(playerBootsType)
+                                && Permissions.canUseChainmailBoots(player)) {
+                            if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)) {
+                                event.setCancelled(true);
+                            }
+                            if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)) {
+                                playerBootsDamageable.setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
+                                if (this.config.enableItemLabels()) {
+                                    setLore(playerBoots, playerBootsDamageable);
+                                } else {
+                                    player.sendMessage("RocketBoots durability: " + playerBootsDamageable.getDamage());
+                                }
+                                if (playerBootsDamageable.getDamage() >= 100) {
+                                    player.getInventory().setBoots(null);
+                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
+                                }
+                            }
+                            final Location playerLocation = player.getLocation();
+                            final int times = this.config.numberLightningStrikes();
+                            final boolean useRealLightning = this.config.strikeRealLightning();
+                            for (int i = 0; i < times; i++) {
+                                if (useRealLightning) {
+                                    player.getWorld().strikeLightning(playerLocation);
+                                } else {
+                                    player.getWorld().strikeLightningEffect(playerLocation);
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
-    public void setLore(ItemStack equippedBoots) {
-    	if(this.config.enableItemLabels()) {
-    		ItemMeta equippedBootsMeta = equippedBoots.getItemMeta();
-        	equippedBootsMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "RocketBoots");
+
+    public void setLore(ItemStack playerBoots, Damageable playerBootsDamageable) {
+        if (this.config.enableItemLabels()) {
+            ItemMeta playerBootsMeta = playerBoots.getItemMeta();
+            playerBootsMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "RocketBoots");
             ArrayList<String> lore = new ArrayList<String>();
-            if(equippedBoots.getDurability() < 40) {
-            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.GREEN + equippedBoots.getDurability() + "%");
-            }else if (equippedBoots.getDurability() < 70) {
-            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.YELLOW + equippedBoots.getDurability() + "%");
-            }else {
-            	lore.add(ChatColor.GRAY + "Durability: " + ChatColor.RED + equippedBoots.getDurability() + "%");
+            if (playerBootsDamageable.getDamage() < 40) {
+                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.GREEN + playerBootsDamageable.getDamage() + "%");
+            } else if (playerBootsDamageable.getDamage() < 70) {
+                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.YELLOW + playerBootsDamageable.getDamage() + "%");
+            } else {
+                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.RED + playerBootsDamageable.getDamage() + "%");
             }
-            equippedBootsMeta.setLore(lore);
-            equippedBoots.setItemMeta(equippedBootsMeta);
-    	}
+            playerBootsMeta.setLore(lore);
+            playerBoots.setItemMeta(playerBootsMeta);
+        }
     }
 }

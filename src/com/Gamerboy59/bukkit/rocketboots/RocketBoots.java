@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -31,8 +31,6 @@
 
 package com.Gamerboy59.bukkit.rocketboots;
 
-import java.io.IOException;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RocketBoots extends JavaPlugin {
@@ -49,16 +47,9 @@ public class RocketBoots extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new RBEntityListener(config), this);
         this.getCommand("rocketboots").setExecutor(new RocketBootsCommand(config));
         this.getLogger().info("RocketBoots v" + this.getDescription().getVersion() + " enabled!");
-        
-        try {
-            BukkitMetrics metrics = new BukkitMetrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            // Failed to submit the stats :-(
-        }
 
         try {
-        	NewBukkitMetrics nmetrics = new NewBukkitMetrics(this);
+            Metrics metrics = new Metrics(this, 2273);
         } catch (Exception e) {
             // Failed to submit the stats :-(
         }

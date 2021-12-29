@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -31,20 +31,19 @@
 
 package com.Gamerboy59.bukkit.rocketboots;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Util {
 
-	public static Material getPlayerBoots(Player player) {
-		if (player.getInventory().getBoots() != null) {
-			final ItemStack boots = player.getInventory().getBoots();
-			if (boots.getAmount() > 0) {
-				return boots.getType();
-			}
-		}
-		return null;
-	}
+    public static ItemStack getPlayerBoots(Player player) {
+        if (player.getInventory().getBoots() != null) {
+            final ItemStack boots = player.getInventory().getBoots();
+            if (boots.getAmount() > 0) {
+                return boots;
+            }
+        }
+        return null;
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2018 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -68,13 +68,13 @@ public class RBPlayerListener implements Listener {
         }
         final Player player = event.getPlayer();
         if (player.isSneaking() && !this.haltedPlayers.contains(player)) {
-            final Material playerBoots = Util.getPlayerBoots(player);
-            if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player))) {
+            final Material playerBoots = Util.getPlayerBoots(player).getType();
+            if ((Material.GOLDEN_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player))) {
                 if (this.config.playerEnabled(player)) {
                     final Location playerLocation = player.getLocation();
                     final Vector playerDirection = playerLocation.getDirection();
                     double speed = 1;
-                    if (Material.GOLD_BOOTS.equals(playerBoots)) {
+                    if (Material.GOLDEN_BOOTS.equals(playerBoots)) {
                         speed = this.config.goldenBootsSpeed();
                     } else if (Material.CHAINMAIL_BOOTS.equals(playerBoots)) {
                         speed = this.config.chainmailBootsSpeed();
@@ -96,7 +96,7 @@ public class RBPlayerListener implements Listener {
             this.haltedPlayers.remove(player);
         }
         if (player.isSneaking() && this.config.playerEnabled(player)) {
-            final Material playerBoots = Util.getPlayerBoots(player);
+            final Material playerBoots = Util.getPlayerBoots(player).getType();
             if (playerBoots == null) return;
             if (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player)) {
                 final Vector playerDirection = player.getLocation().getDirection();
@@ -155,8 +155,8 @@ public class RBPlayerListener implements Listener {
         }
         if (event.getReason().equals("Flying is not enabled on this server")) {
             final Player player = event.getPlayer();
-            final Material playerBoots = Util.getPlayerBoots(player);
-            if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
+            final Material playerBoots = Util.getPlayerBoots(player).getType();
+            if ((Material.GOLDEN_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
                 event.setCancelled(true);
             }
         }
@@ -166,17 +166,17 @@ public class RBPlayerListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         if (Action.RIGHT_CLICK_AIR.equals(event.getAction())) {
             final Player player = event.getPlayer();
-            final Material playerBoots = Util.getPlayerBoots(player);
+            final Material playerBoots = Util.getPlayerBoots(player).getType();
             if (playerBoots == null) return;
             final ItemStack itemInHand = player.getInventory().getItemInMainHand();
             if (Material.FEATHER.equals(itemInHand.getType()) && Permissions.canUseFeather(player)) {
-                if ((Material.GOLD_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
+                if ((Material.GOLDEN_BOOTS.equals(playerBoots) && Permissions.canUseGoldBoots(player)) || (Material.CHAINMAIL_BOOTS.equals(playerBoots) && Permissions.canUseChainmailBoots(player)) || (Material.DIAMOND_BOOTS.equals(playerBoots) && Permissions.canUseDiamondBoots(player))) {
                     final Location playerLocation = player.getLocation();
                     final Block blockBelow = playerLocation.getBlock().getRelative(BlockFace.DOWN);
                     if (player.isSneaking()) {
                         this.haltedPlayers.add(player); // players in this list can't fly until they toggle sneak
                     }
-                    player.sendBlockChange(blockBelow.getLocation(), Material.GLASS, (byte) 0);
+                    player.sendBlockChange(blockBelow.getLocation(), Material.GLASS.createBlockData());
                     player.setVelocity(new Vector(0, 0, 0));
                     player.teleport(playerLocation);
                 }
