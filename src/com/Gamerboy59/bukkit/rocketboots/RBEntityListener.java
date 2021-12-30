@@ -73,8 +73,7 @@ public class RBEntityListener implements Listener {
                                 event.setCancelled(true);
                             }
                             if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)) {
-                                playerBootsDamageable
-                                        .setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
+                                playerBootsDamageable.setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
                                 if (this.config.enableItemLabels()) {
                                     setLore(playerBoots, playerBootsDamageable);
                                 } else {
