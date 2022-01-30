@@ -84,8 +84,7 @@ public class RBEntityListener implements Listener {
                                     player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
                                 }
                             }
-                        } else if (Material.CHAINMAIL_BOOTS.equals(playerBootsType)
-                                && Permissions.canUseChainmailBoots(player)) {
+                        } else if (Material.CHAINMAIL_BOOTS.equals(playerBootsType) && Permissions.canUseChainmailBoots(player)) {
                             if (!this.config.enableFallDamage() || Permissions.bypassFallDamage(player)) {
                                 event.setCancelled(true);
                             }
