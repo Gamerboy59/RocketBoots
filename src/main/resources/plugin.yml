@@ -2,8 +2,8 @@ name: RocketBoots
 main: com.Gamerboy59.bukkit.rocketboots.RocketBoots
 description: Various rocket boots, fun and useful, for flying around your server.
 author: Gamerboy59
-version: 0.9
-api-version: 1.18
+version: 0.9.3.2
+api-version: 1.14
 
 commands:
     rocketboots:
