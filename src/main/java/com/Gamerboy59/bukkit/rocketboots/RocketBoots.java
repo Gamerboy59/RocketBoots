@@ -31,6 +31,7 @@
 
 package com.Gamerboy59.bukkit.rocketboots;
 
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class RocketBoots extends JavaPlugin {
