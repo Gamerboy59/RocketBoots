@@ -254,6 +254,13 @@
 							<shadedPattern>com.Gamerboy59.bukkit.rocketBoots.Metrics</shadedPattern>
 						</relocation>
 					</relocations>
+					<filters>
+						<filter>
+							<excludes>
+								<exclude>META-INF/**</exclude>
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
 				<executions>
 					<execution>

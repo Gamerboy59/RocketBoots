@@ -50,7 +50,8 @@ public class RocketBoots extends JavaPlugin {
         this.getLogger().info("RocketBoots v" + this.getDescription().getVersion() + " enabled!");
 
         try {
-            Metrics metrics = new Metrics(this, 2273);
+            @SuppressWarnings("unused")
+			Metrics metrics = new Metrics(this, 2273);
         } catch (Exception e) {
             // Failed to submit the stats :-(
         }
