@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2022 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -31,6 +31,9 @@
 
 package com.Gamerboy59.bukkit.rocketboots;
 
+import java.util.Locale;
+
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,27 +43,38 @@ import org.bukkit.entity.Player;
 public class RocketBootsCommand implements CommandExecutor {
 
     private final RBConfiguration config;
+    private final Language lang;
 
-    public RocketBootsCommand(RBConfiguration config) {
+    public RocketBootsCommand(RBConfiguration config, Language lang) {
         this.config = config;
+        this.lang = lang;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("This command must be used in-game");
-            return true;
-        }
-        final Player player = (Player) sender;
-        String enabledMessage;
-        if ((args.length > 0) && this.config.playersCanDisable()) {
-            final boolean enabled = args[0].equalsIgnoreCase("yes") || args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("on");
-            this.config.setPlayerEnabled(player, enabled);
-            enabledMessage = enabled ? "now enabled" : "now disabled";
+        if (sender instanceof Player) {
+            final Player player = (Player) sender;
+            if ((args.length > 0) && this.config.playersCanDisable()) {
+                final boolean enabled = args[0].equalsIgnoreCase("yes") || args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("on");
+                final boolean disabled = args[0].equalsIgnoreCase("no") || args[0].equalsIgnoreCase("false") || args[0].equalsIgnoreCase("off");
+                this.config.setPlayerEnabled(player, enabled);
+                if(enabled) {
+                	player.sendMessage(lang.getString("RocketBootsNowEnabledMsg", player.getLocale()));
+                } else if(disabled){
+                	player.sendMessage(lang.getString("RocketBootsNowDisabledMsg", player.getLocale()));
+                } else {
+                	return false;
+                }
+            } else {
+                if(this.config.playerEnabled(player)) {
+                	player.sendMessage(lang.getString("RocketBootsEnabledMsg", player.getLocale()));
+                } else {
+                	player.sendMessage(lang.getString("RocketBootsDisabledMsg", player.getLocale()));
+                }
+            }
         } else {
-            enabledMessage = this.config.playerEnabled(player) ? "enabled" : "disabled";
+        	Bukkit.getConsoleSender().sendMessage(lang.getString("Non_Console_Cmd", Locale.getDefault().toString()));
         }
-        player.sendMessage("RocketBoots are " + enabledMessage + " for you");
         return true;
     }
 

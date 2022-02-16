@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2022 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -44,9 +44,10 @@ public class RocketBoots extends JavaPlugin {
     @Override
     public void onEnable() {
         RBConfiguration config = new RBConfiguration(this);
+        Language lang = new Language(this, config);
         this.getServer().getPluginManager().registerEvents(new RBPlayerListener(config), this);
-        this.getServer().getPluginManager().registerEvents(new RBEntityListener(config), this);
-        this.getCommand("rocketboots").setExecutor(new RocketBootsCommand(config));
+        this.getServer().getPluginManager().registerEvents(new RBEntityListener(config, lang), this);
+        this.getCommand("rocketboots").setExecutor(new RocketBootsCommand(config, lang));
         this.getLogger().info("RocketBoots v" + this.getDescription().getVersion() + " enabled!");
 
         try {

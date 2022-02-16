@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2022 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -75,6 +75,14 @@ public final class RBConfiguration {
             this.plugin.getLogger().log(Level.WARNING, "Couldn't create default config file (Bukkit bug?), using default values");
             configFile.delete();
         }
+    }
+
+    public String prefix() {
+    	return this.config.getString("prefix", "&6[RocketBoots]&9");
+    }
+
+    public boolean debug() {
+        return this.config.getBoolean("debug", false);
     }
 
     public boolean strikeRealLightning() {

@@ -1,5 +1,5 @@
 /*
-* Copyright 2012-2021 webshoptv, Gamerboy59. All rights reserved.
+* Copyright 2012-2022 webshoptv, Gamerboy59. All rights reserved.
 *
 * Redistribution and use in source and binary forms, with or without modification, are
 * permitted provided that the following conditions are met:
@@ -49,9 +49,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class RBEntityListener implements Listener {
 
     private final RBConfiguration config;
+    private final Language lang;
 
-    public RBEntityListener(RBConfiguration config) {
+    public RBEntityListener(RBConfiguration config, Language lang) {
         this.config = config;
+        this.lang = lang;
     }
 
     @EventHandler
@@ -75,13 +77,13 @@ public class RBEntityListener implements Listener {
                             if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)) {
                                 playerBootsDamageable.setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
                                 if (this.config.enableItemLabels()) {
-                                    setLore(playerBoots, playerBootsDamageable);
+                                    setLore(player, playerBoots, playerBootsDamageable);
                                 } else {
-                                    player.sendMessage("RocketBoots durability: " + playerBootsDamageable.getDamage());
+                                    player.sendMessage(lang.getString("DurabilityMsg", player.getLocale()) + ": " + playerBootsDamageable.getDamage());
                                 }
                                 if (playerBootsDamageable.getDamage() >= 100) {
                                     player.getInventory().setBoots(null);
-                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
+                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " " + lang.getString("DestroyedMsg", player.getLocale()));
                                 }
                             }
                         } else if (Material.CHAINMAIL_BOOTS.equals(playerBootsType) && Permissions.canUseChainmailBoots(player)) {
@@ -91,13 +93,13 @@ public class RBEntityListener implements Listener {
                             if ((this.config.bootsDamage() != 0) || !Permissions.bypassBootsDamage(player)) {
                                 playerBootsDamageable.setDamage(playerBootsDamageable.getDamage() + this.config.bootsDamage());
                                 if (this.config.enableItemLabels()) {
-                                    setLore(playerBoots, playerBootsDamageable);
+                                    setLore(player, playerBoots, playerBootsDamageable);
                                 } else {
-                                    player.sendMessage("RocketBoots durability: " + playerBootsDamageable.getDamage());
+                                    player.sendMessage(lang.getString("DurabilityMsg", player.getLocale()) + ": " + playerBootsDamageable.getDamage());
                                 }
                                 if (playerBootsDamageable.getDamage() >= 100) {
                                     player.getInventory().setBoots(null);
-                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " RocketBoots destroyed");
+                                    player.sendMessage(ChatColor.RED + "[--> " + ChatColor.DARK_RED + ChatColor.BOLD + "X" + ChatColor.RESET + ChatColor.RED + " ]" + ChatColor.RESET + " " + lang.getString("DestroyedMsg", player.getLocale()));
                                 }
                             }
                             final Location playerLocation = player.getLocation();
@@ -117,17 +119,17 @@ public class RBEntityListener implements Listener {
         }
     }
 
-    public void setLore(ItemStack playerBoots, Damageable playerBootsDamageable) {
+    public void setLore(Player player, ItemStack playerBoots, Damageable playerBootsDamageable) {
         if (this.config.enableItemLabels()) {
             ItemMeta playerBootsMeta = playerBoots.getItemMeta();
             playerBootsMeta.setDisplayName(ChatColor.GOLD + "" + ChatColor.UNDERLINE + "RocketBoots");
             ArrayList<String> lore = new ArrayList<String>();
             if (playerBootsDamageable.getDamage() < 40) {
-                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.GREEN + playerBootsDamageable.getDamage() + "%");
+                lore.add(ChatColor.GRAY + lang.getString("Durability", player.getLocale()) + ": " + ChatColor.GREEN + playerBootsDamageable.getDamage() + "%");
             } else if (playerBootsDamageable.getDamage() < 70) {
-                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.YELLOW + playerBootsDamageable.getDamage() + "%");
+                lore.add(ChatColor.GRAY + lang.getString("Durability", player.getLocale()) + ": " + ChatColor.YELLOW + playerBootsDamageable.getDamage() + "%");
             } else {
-                lore.add(ChatColor.GRAY + "Durability: " + ChatColor.RED + playerBootsDamageable.getDamage() + "%");
+                lore.add(ChatColor.GRAY + lang.getString("Durability", player.getLocale()) + ": " + ChatColor.RED + playerBootsDamageable.getDamage() + "%");
             }
             playerBootsMeta.setLore(lore);
             playerBoots.setItemMeta(playerBootsMeta);

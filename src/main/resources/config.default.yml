@@ -1,8 +1,10 @@
 # RocketBoots config file
 # -----------------------
 
-# Copyright @webshoptv; All rights reserved.
+# Copyright @webshoptv, @Gamerboy59; All rights reserved.
 # Gamerboy59 is the Developer of this plugin.
+prefix: "&6[RocketBoots]&9"
+debug: false
 
 # Can players disable RocketBoots for themselves? (/rocketboots off|on)
 # This is useful if you have a survival/PvP server where players wear boots
@@ -78,4 +80,3 @@ AdvancedMod:
 
     # Add fall damage to the player when landing on the ground.
     enableFallDamage: true
-                   #(/false)
