@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.Gamerboy59.bukkit</groupId>
 	<artifactId>rocketboots</artifactId>
-	<version>9.3.2</version>
+	<version>9.3.3</version>
 	<name>RocketBoots</name>
 	<description>Various rocket boots, fun and useful, for flying around your server.</description>
 	<url>http://dev.bukkit.org/bukkit-plugins/rocketboots/</url>
