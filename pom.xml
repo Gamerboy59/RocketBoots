@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.Gamerboy59.bukkit</groupId>
@@ -36,9 +35,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Change Compiler Version (JDK) HERE! -->
-		<javaVersion>11</javaVersion>
+		<javaVersion>17</javaVersion>
 		<!-- Change MC Version HERE! -->
-		<bukkitVersion>1.18.1-R0.1-SNAPSHOT</bukkitVersion>
+		<bukkitVersion>1.19-R0.1-SNAPSHOT</bukkitVersion>
 	</properties>
 
 	<dependencies>
@@ -201,6 +200,7 @@
 				<configuration>
 					<source>${javaVersion}</source>
 					<target>${javaVersion}</target>
+					<release>${javaVersion}</release>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
