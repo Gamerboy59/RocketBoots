@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.Gamerboy59.bukkit</groupId>
 	<artifactId>rocketboots</artifactId>
-	<version>9.3.3</version>
+	<version>9.3.4</version>
 	<name>RocketBoots</name>
 	<description>Various rocket boots, fun and useful, for flying around your server.</description>
 	<url>http://dev.bukkit.org/bukkit-plugins/rocketboots/</url>
@@ -38,7 +38,7 @@
 		<!-- Change Compiler Version (JDK) HERE! -->
 		<javaVersion>17</javaVersion>
 		<!-- Change MC Version HERE! -->
-		<bukkitVersion>1.20.1-R0.1-SNAPSHOT</bukkitVersion>
+		<bukkitVersion>1.20.4-R0.1-SNAPSHOT</bukkitVersion>
 	</properties>
 
 	<dependencies>
@@ -110,16 +110,12 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.7.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.6.1</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
@@ -130,7 +126,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>3.3.2</version>
 				<executions>
 					<execution>
 						<id>default-clean</id>
@@ -181,7 +177,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>3.13.0</version>
 				<executions>
 					<execution>
 						<id>default-compile</id>
@@ -207,7 +203,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.1.2</version>
+				<version>3.2.5</version>
 				<executions>
 					<execution>
 						<id>default-test</id>
@@ -247,7 +243,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.5.0</version>
+				<version>3.5.2</version>
 				<configuration>
 					<relocations>
 						<relocation>
