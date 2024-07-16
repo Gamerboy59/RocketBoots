@@ -38,7 +38,7 @@
 		<!-- Change Compiler Version (JDK) HERE! -->
 		<javaVersion>17</javaVersion>
 		<!-- Change MC Version HERE! -->
-		<bukkitVersion>1.20.4-R0.1-SNAPSHOT</bukkitVersion>
+		<bukkitVersion>1.21-R0.1-SNAPSHOT</bukkitVersion>
 	</properties>
 
 	<dependencies>
