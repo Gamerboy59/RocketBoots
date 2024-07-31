@@ -34,6 +34,8 @@ pipeline {
                         sh 'mvn'
                         // Archive the build artifacts
                         archiveArtifacts artifacts: 'target/RocketBoots*.jar', allowEmptyArchive: true
+                        // Create fingerprints for the archived artifacts
+                        fingerprint 'target/RocketBoots*.jar'
                     }
                 }
             }
